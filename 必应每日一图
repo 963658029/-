@@ -1,0 +1,20 @@
+import requests
+import time
+import json
+
+
+def getBingImg():
+    t = int(time.time())
+    url = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&nc={}&pid=hp'.format(t)
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36 Edg/81.0.416.50'
+    }
+    resp = requests.get(url, headers=headers)
+    data = resp.text
+    obj = json.loads(data)
+    url = obj['images'][0]['url']
+    bing = 'https://cn.bing.com/'
+    return bing + url
+
+if __name__ == "__main__":
+    print(getBingImg())
